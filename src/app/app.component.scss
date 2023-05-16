@@ -1,0 +1,227 @@
+// ion-menu ion-content {
+//   --background: var(--ion-item-background, var(--ion-background-color, #1d6559));
+// }
+ion-menu{
+  width: 300px !important;
+  overflow: hidden;
+}
+
+.badge {
+  width: 10px;
+  position: absolute;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--ion-color-secondary);
+}
+
+ion-menu ion-list {
+  padding: 20px 0;
+}
+a {
+  text-decoration: none;
+}
+.bgCustom{
+  --background: #fafafa !important;
+}
+
+.buttonToggleMenu {
+  // margin-left: 17px;
+  // margin-top: -10px;
+  z-index: 10;
+}
+
+.custom-icon-header {
+  background-image: url(../assets/imgs/logo.svg) !important;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 16px 0px 10px 0px!important;
+  // margin-bottom: 30px !important;
+  width: 180px;
+  transform: scale(1.4);
+  height: 50px;
+  overflow: visible;
+
+  ion-label.header {
+    h2 {
+      font-weight: 600 !important;
+      font-size: 10pt;
+    }
+  }
+}
+
+ion-menu ion-item {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 4px;
+  color: var(--ion-color-primary);
+  ion-icon{
+    color: var(--ion-color-primary) !important;
+  }
+
+  &:hover{
+    ion-label{
+      color: var(--ion-color-primary) !important;
+    }
+  }
+}
+
+ion-menu.md ion-item.selected {
+  ion-label{
+    font-weight: 600;
+  }
+  // background: var(--ion-color-light-shade);
+  color: var(--ion-color-primary);
+  ion-icon{
+    color: var(--ion-color-primary) !important;
+  }
+
+  &:hover{
+    ion-label{
+      color: var(--ion-color-primary) !important;
+    }
+  }
+}
+ion-item.selected:hover {
+  ion-label{
+    font-weight: 600;
+  }
+  color: var(--ion-color-primary) !important;
+  ion-icon{
+    color: var(--ion-color-primary) !important;
+  }
+}
+
+ion-menu.md ion-item.selected ion-icon {
+  color: var(--ion-color-primary);
+}
+ion-menu.md ion-item.selected ion-label {
+  color: var(--ion-color-primary);
+}
+
+.active-parent{
+  color: var(--ion-color-light);
+  font-weight: 600 !important;
+  ion-icon{
+    color: var(--ion-color-primary) !important;
+  }
+}
+.sub-item{
+  margin-left: 15px;
+}
+ion-list{
+  &.ion-no-padding{
+    padding: 0px !important;
+  }
+}
+
+.marginLeft{
+  margin-left: 15px;
+  position: relative;
+  margin-right: 15px;
+}
+
+@media (min-width: 993px) {
+  ion-menu{
+    // --max-width: 100px !important;
+    --width: 100px !important;
+    --padding: 0px !important;
+    --margin: 0px !important;
+    z-index: -1;
+    border-right: none;
+  }
+
+  ion-router-outlet{
+    margin-left: -200px !important;
+  }
+  .displayNone{
+    display: none;
+  }
+  .itemCloseMenu{
+    width: 120px;
+    text-align: center;
+    margin-left: -20px;
+    // display: inline-block;
+    // vertical-align: middle;
+    // overflow: visible;
+  }
+
+  .itemCloseMenu2 {
+    width: 140px;
+    text-align: center;
+    margin-left: -20px;
+    .iconCloseMenu2 {
+      font-size: 18px;
+      text-align: center;
+      width: 100% !important;
+    }
+  }
+  .title-menu {
+    font-size: 0.9rem;
+  }
+  .iconCloseMenu{
+    // margin-right: -20px;
+    text-align: center;
+    font-size: 30px !important;
+    width: 100% !important;
+    height: 30px !important;
+    transform: scale(1);
+  }
+  .open-menu{
+    --max-width: 300px !important;
+    --width: 300px !important;
+    z-index: 1;
+  }
+    
+  .isopen-menu{
+    margin-left: 0px !important;
+  }
+
+  .onlyEye{
+    background-image: url(../assets/imgs/logo.svg) !important;
+    background-size: contain;
+    // background-color: #fafafa !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60px;
+    width: 60px;
+    transform: scale(1);
+    margin: 16px 0px 10px 15px!important;
+    // transition: .5s;
+    cursor: pointer;
+  }
+  .onlyEye:hover{
+    transform: scale(1.2);
+    transition: ease-in-out .5s;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 993px){
+  .dn-mb {
+    display: none !important;
+  }
+  .buttonToggleMenu{
+    display: none;
+  }
+  .custom-icon-header{
+    margin-left: 80px !important;
+    max-width: 100px !important;
+  }
+  .colControl{
+    display: none !important;
+  }
+}
+
+.bgInvisible{
+    background-color: #fafafa !important;
+}
+
+.textAdjust{
+  color: var(--ion-color-primary);
+  font-size: 0.65rem;
+}
+.textAdjust2{
+  color: var(--ion-color-primary);
+  font-size: 0.6rem;
+}

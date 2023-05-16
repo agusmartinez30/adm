@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar class="borderToolbar">
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref="/administrators"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Administrador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content scrollbar>
+  
+    <ion-grid class="ion-padding">
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <ion-row>
+          <ion-col size="12" sizeMd="9">
+            <h4>{{ creating ? 'Agregar administrador' : 'Detalle del administrador' }}</h4>
+          </ion-col>
+      
+          <ion-col size="12" sizeMd="3" class="ion-align-right">
+            <ion-button color="secondary" expand="block" shape="round" type="submit" [disabled]="!form.valid" *ngIf="!isWatching">
+              <ion-icon slot="start" name="save-outline"></ion-icon>
+              Guardar
+            </ion-button>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <div class="card">
+              <ion-item lines="none">
+                <ion-label position="floating">Email:</ion-label>
+                <ion-input type="email" formControlName="emailAddress" [readonly]="isWatching"></ion-input>
+              </ion-item>
+              <div *ngIf="!isFieldValid('emailAddress')" class="invalid-input-message">
+                {{getFieldError('emailAddress')}}
+              </div>
+            </div>
+  
+            <div class="card ion-margin-top" *ngIf="creating">
+              <ion-item class="ion-align-items-center" lines="none">
+                <ion-icon color="primary" slot="end" [name]="showPassword ? 'eye-off' : 'eye-outline'" (click)="showPassword = !showPassword"></ion-icon>
+                <ion-label position="floating">Contraseña: </ion-label>
+                <ion-input color="primary" [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
+              </ion-item>
+              <div *ngIf="!isFieldValid('password')" class="invalid-input-message">
+                {{getFieldError('password')}}
+              </div>
+            </div>
+
+            <div class="card ion-margin-top" *ngIf="creating">
+              <ion-item class="ion-align-items-center" lines="none">
+                <ion-icon color="primary" slot="end" [name]="showPassword1 ? 'eye-off' : 'eye-outline'" (click)="showPassword1 = !showPassword1"></ion-icon>
+                <ion-label position="floating">Repita contraseña: </ion-label>
+                <ion-input color="primary" [type]="showPassword1 ? 'text' : 'password'" formControlName="passwordVerify"></ion-input>
+              </ion-item>
+              <div *ngIf="!isFieldValid('passwordVerify')" class="invalid-input-message">
+                {{getFieldError('passwordVerify')}}
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-margin-top-custom" *ngIf="!creating">
+          <ion-col size="12" size-md="5"></ion-col>
+          <ion-col size="12" size-md="3.5">
+            <ion-button (click)="goChangePassword()" expand="block" fill="solid" color="secondary">
+              <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+                Cambiar contraseña
+            </ion-button>
+          </ion-col>
+          <ion-col size="12" size-md="3.5">
+            <ion-button expand="block" fill="solid" color="primary" (click)="recoverPassword()">
+              <ion-icon slot="start" name="mail-outline"></ion-icon>
+              Recuperar contraseña
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+
+    </ion-grid>
+  
+
+
+</ion-content>

@@ -1,0 +1,256 @@
+<ion-header>
+  <ion-toolbar class="borderToolbar">
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref="/stores"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Local</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content scrollbar>
+
+  <ion-grid class="ion-padding">
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <ion-row>
+        <ion-col size="12" size-md="9">
+          <h4>{{ creating ? 'Agregar Local' : 'Detalle Local' }}</h4>
+        </ion-col>
+
+        <ion-col size="12" size-md="3" *ngIf="!isWatching">
+          <ion-button color="secondary" expand="block" shape="round" type="submit" [disabled]="!form.valid">
+            <ion-icon slot="start" name="save-outline"></ion-icon>
+            Guardar
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <div class="card ion-margin-top">
+            <ion-item lines="none">
+              <ion-label position="floating">Nombre</ion-label>
+              <ion-input type="text" formControlName="month" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('month')" class="invalid-input-message">
+              {{getFieldError('month')}}
+            </div>
+          </div>
+
+          <div class="card ion-margin-top">
+            <ion-item lines="none">
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" formControlName="seasonallyAdjustedIndex" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('seasonallyAdjustedIndex')" class="invalid-input-message">
+              {{getFieldError('seasonallyAdjustedIndex')}}
+            </div>
+          </div>
+
+          <div class="card ion-margin-top">
+            <ion-item lines="none" class="ion-align-items-center">
+              <ion-label position="floating">Teléfono</ion-label>
+              <ion-input type="number" formControlName="year" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+              {{getFieldError('year')}}
+            </div>
+          </div>
+
+          <h4>Redes sociales</h4>
+
+          <div class="card ion-margin-top">
+            <ion-item lines="none" class="ion-align-items-center">
+              <ion-label position="floating">Web</ion-label>
+              <ion-input type="text" formControlName="year" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+              {{getFieldError('year')}}
+            </div>
+          </div>
+
+          <div class="card ion-margin-top">
+            <ion-item lines="none" class="ion-align-items-center">
+              <ion-label position="floating">Instagram</ion-label>
+              <ion-input type="text" formControlName="year" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+              {{getFieldError('year')}}
+            </div>
+          </div>
+
+          <div class="card ion-margin-top">
+            <ion-item lines="none" class="ion-align-items-center">
+              <ion-label position="floating">Facebook</ion-label>
+              <ion-input type="text" formControlName="year" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+              {{getFieldError('year')}}
+            </div>
+          </div>
+
+          <h4>Tipo de disponibilidad</h4>
+
+          <ion-radio-group [(ngModel)]="value" [ngModelOptions]="{standalone: true}">
+            <div class="card ion-margin-top">
+              <ion-item lines="none" class="ion-align-items-center">
+                <ion-radio slot="start" value="person"></ion-radio>
+                <ion-label>Por persona</ion-label>
+              </ion-item>
+              <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+                {{getFieldError('year')}}
+              </div>
+
+              <ion-item lines="none" class="ion-align-items-center">
+                <ion-radio slot="start" value="table"></ion-radio>
+                <ion-label>Por mesa</ion-label>
+              </ion-item>
+              <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+                {{getFieldError('year')}}
+              </div>
+            </div>
+          </ion-radio-group>
+
+          <div class="card ion-margin-top" *ngIf="value == 'person'">
+            <ion-item lines="none" class="ion-align-items-center">
+              <ion-label position="floating">Cantidad</ion-label>
+              <ion-input type="number" formControlName="year" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+              {{getFieldError('year')}}
+            </div>
+          </div>
+
+          <div *ngIf="value == 'table'">
+            <div class="card ion-margin-top">
+              <ion-item lines="none" class="ion-align-items-center">
+                <ion-label position="floating">Cantidad de mesas</ion-label>
+                <ion-input type="number" formControlName="year" [readonly]="isWatching"></ion-input>
+              </ion-item>
+              <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+                {{getFieldError('year')}}
+              </div>
+            </div>
+
+            <div class="card ion-margin-top">
+              <ion-item lines="none" class="ion-align-items-center">
+                <ion-label position="floating">Personas por mesa</ion-label>
+                <ion-input type="number" formControlName="year" [readonly]="isWatching"></ion-input>
+              </ion-item>
+              <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+                {{getFieldError('year')}}
+              </div>
+            </div>
+
+            <ion-radio-group>
+              <div class="card ion-margin-top">
+                <ion-item lines="none" class="ion-align-items-center">
+                  <ion-radio slot="start" value="inside"></ion-radio>
+                  <ion-label>Mesa interior</ion-label>
+                </ion-item>
+                <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+                  {{getFieldError('year')}}
+                </div>
+  
+                <ion-item lines="none" class="ion-align-items-center">
+                  <ion-radio slot="start" value="outside"></ion-radio>
+                  <ion-label>Mesa exterior</ion-label>
+                </ion-item>
+                <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+                  {{getFieldError('year')}}
+                </div>
+              </div>
+            </ion-radio-group>
+
+            <ion-button class="ion-margin-top" expand="block" color="primary" shape="round">
+              <ion-icon name="add" slot="start"></ion-icon>
+              Añadir Variante
+            </ion-button>
+          </div>
+
+          <h4>Tiempo limite de llegada</h4>
+
+          <div class="card ion-margin-top">
+            <ion-item lines="none" class="ion-align-items-center">
+              <ion-label position="floating">Tiempo (en minutos)</ion-label>
+              <ion-input type="number" formControlName="year" [readonly]="isWatching"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('year')" class="invalid-input-message">
+              {{getFieldError('year')}}
+            </div>
+          </div>
+          
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <div class="card ion-margin-top">
+            <ion-searchbar *ngIf="address" [disabled]="!googleAutocomplete" [(ngModel)]="textSearch"
+              [ngModelOptions]="{ standalone: true }" class="ion-no-margin ion-no-padding"
+              placeholder="Ingrese una dirección aquí" mode="ios" (keydown)="getPlacePredictions()"
+              (ionChange)="onChangeSearchLocation()">
+            </ion-searchbar>
+            <ion-item lines="none" class="predictions-from" [hidden]="!autocompleteItems.length">
+              <ion-list style="width: 100%;">
+                <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+                  {{ item.description }}
+                </ion-item>
+              </ion-list>
+            </ion-item>
+
+            <div #map id="map"></div>
+
+            <ion-item class="ion-margin-top" *ngIf="address">
+              <ion-input [(ngModel)]="address.address" [ngModelOptions]="{ standalone: true }" type="text"
+                placeholder="Dirección" readonly></ion-input>
+            </ion-item>
+          </div>
+
+          <h6>Imágenes principales:</h6>
+          <ion-list class="item-list">
+            <ion-item lines='none'class='ion-text-center ion-margin-top'>
+              <ion-label>Aún no has cargado ningúna imágen.</ion-label>
+            </ion-item>
+            <ion-item *ngFor="let picture of form.value.pictures">
+              <ion-thumbnail slot="start">
+                <img [src]="getImage(picture, 'sm')" onerror="this.src = 'assets/imgs/default.png'" alt="">
+              </ion-thumbnail>
+              <ion-label>{{ picture }}</ion-label>
+              <ion-button slot="end" fill="clear" (click)="deleteFile(picture, 'pictures')" *ngIf="!isWatching">
+                <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" fill="clear" (click)="openFile(getImage(picture, 'default'))">
+                <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+
+          <ion-button expand="block" (click)="handlePictures()" shape="round" *ngIf="!isWatching">
+            <ion-icon name="download-outline" slot="start"></ion-icon>
+            Subir
+          </ion-button>
+
+          <!-- <div class="card ion-margin-top">
+            <ion-text>
+              <p>Imagenes:</p>
+            </ion-text>
+            <div class="d-flex paddingCustom30 ion-align-items-center ion-text-center">
+              <img class="clickable captureImg" [src]="getImage(form.value.picture)" width="100%"
+                onerror="this.src = 'assets/imgs/default.png'" alt="">
+              <ion-row class="ion-text-center" *ngIf="!isWatching">
+                <ion-buttons>
+                  <ion-button fill="clear" (click)="handlePicture()">
+                    <ion-icon name="cloud-upload-outline" color="primary"></ion-icon>
+                  </ion-button>
+
+                  <ion-button fill="clear" (click)="openFile(getImage(form.value.picture, 'default'))">
+                    <ion-icon name="eye-outline" color="primary"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-row>
+            </div>
+          </div> -->
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+</ion-content>

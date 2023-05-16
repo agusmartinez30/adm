@@ -1,0 +1,29 @@
+<app-header [title]="title"></app-header>
+
+<ion-content scrollbar>
+
+  <ion-grid class="ion-padding">
+    <!-- <div class="card"> -->
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10" size-md="6">
+        <ion-searchbar animated placeholder="Buscar por nombre" inputmode='search' type='search' [(ngModel)]='textSearch'
+            (ionChange)='getItems()' [debounce]='250'></ion-searchbar>
+      </ion-col>
+      <ion-col size="12" size-md="3"></ion-col>
+      <ion-col size="12" size-md="3" class="ion-text-right ion-text-end">
+        <ion-button (click)="pageService.navigateRoute(options.detailPageName + '/edit/new')" color="secondary"
+          expand="block" fill="solid">
+          <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+          Agregar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <!-- </div> -->
+
+    <app-table [items]="staticItems" [options]="options" [page]="page" [count]="count"
+      (onEnabledChange)="handleEnable($event)" (onPageChange)="handleTablePage($event)"></app-table>
+
+  </ion-grid>
+
+</ion-content>

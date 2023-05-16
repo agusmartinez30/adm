@@ -1,0 +1,50 @@
+<ion-app class="animate__fadeIn animate__animated">
+  <ion-split-pane contentId="main-content">
+    <ion-menu [class.open-menu]="global.isMenuOpen" contentId="main-content" type="overlay" [disabled]="!user">
+      <ion-row class="bgInvisible ion-align-items-center">
+        <ion-col class="colControl" *ngIf="global.isMenuOpen" size="3">
+          <div class="buttonToggleMenu">
+            <ion-button [class.displayNone]="!global.isMenuOpen">
+              <ion-icon size="large" color="primary" [name]="global.isMenuOpen ? 'menu-outline' : 'displayNone'">
+              </ion-icon>
+            </ion-button>
+          </div>
+        </ion-col>
+        <ion-col size="9">
+          <div lines="none" [class.onlyEye]="!global.isMenuOpen" class="custom-icon-header">
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-content #content id="content" class="bgCustom">
+        <perfect-scrollbar style="max-width: 600px; max-height:auto;">
+
+          <!-- <ng-scrollbar class="scrollbar" barClass="scrollbar" thumbClass="scrollbar-thumbs"> -->
+          <ng-container *ngFor="let p of appPages">
+            <div class="marginLeft" *ngIf="p.roles.includes(user?.roles[0])">
+              <ion-menu-toggle auto-hide="false" *ngIf="p.url" (click)="action(p)">
+                <a (click)="global.closeMenu()" routerDirection="root" routerLinkActive="active" [routerLink]="[p.url]">
+                  <div class="badge" *ngIf="p.badge"></div>
+                  <ion-item [class.itemCloseMenu]="!global.isMenuOpen" [class.selected]="location.path() === p.url"
+                    lines="none" routerDirection="root" routerLinkActive="active" [routerLink]="[p.url]">
+                    <ion-icon [class.displayNone]="!global.isMenuOpen" size="large" slot="start"
+                      [class.iconCloseMenu]="!global.isMenuOpen"
+                      [name]="location.path() === p.url ? p.icon : p.icon + '-outline'"></ion-icon>
+                    <ion-label [class.displayNone]="!global.isMenuOpen" class="title-menu ion-text-wrap">{{ p.title }}
+                    </ion-label>
+                    <ion-label [class.displayNone]="global.isMenuOpen" class="ion-text-center dn-mb">
+                      <ion-icon size="large" slot="start" [class.iconCloseMenu]="!global.isMenuOpen"
+                        [name]="location.path() === p.url ? p.icon : p.icon + '-outline'"></ion-icon>
+                      <p class="textAdjust ion-text-wrap">{{ p.title }}</p>
+                    </ion-label>
+                  </ion-item>
+                </a>
+              </ion-menu-toggle>
+            </div>
+          </ng-container>
+          <!-- </ng-scrollbar> -->
+        </perfect-scrollbar>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet [class.isopen-menu]="global.isMenuOpen || !user" id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

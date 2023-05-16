@@ -1,0 +1,64 @@
+<ion-content scrollbar>
+  <ion-grid class="class-grid">
+    <ion-row class="animate__fadeInDown animate__animated">
+      <ion-col size-xs="12" size-md="5"></ion-col>
+      <ion-col size-xs="12" size-md="2" class="ion-text-center">
+        <div class="w100 d-flex ion-justify-content-center">
+          <img class="img-size" src="assets/imgs/logo.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-md="5"></ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-justify-content-center ion-align-items-center animate__fadeInDown animate__animated ion-margin-top">
+
+      <ion-col size="1" size-md="3"></ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-card class="ion-padding ion-no-margin">
+          <form class="ion-margin-top ion-padding" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <ion-item>
+              <ion-label class="fontAdjust" color="primary" position="floating">Usuario</ion-label>
+              <ion-input type="email" formControlName="username"></ion-input>
+            </ion-item>
+            <div *ngIf="!isFieldValid('username')" class="invalid-input-message">
+              {{getFieldError('username')}}
+            </div>
+
+            <ion-item class="ion-margin-top">
+              <ion-label class="fontAdjust" color="primary" position="floating">Contraseña</ion-label>
+              <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
+              <ion-button fill="clear" class="ion-margin-top" slot="end" (click)="showPassword = !showPassword">
+                <ion-icon [name]="showPassword ? 'eye-off' : 'eye-outline'" color="primary" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <div *ngIf="!isFieldValid('password')" class="invalid-input-message">
+              {{getFieldError('password')}}
+            </div>
+
+            <ion-row class="ion-margin-top">
+              <ion-col class="ion-no-padding ion-text-center">
+                <ion-text color="primary" class="clickable ion-text-center" type="button"
+                  (click)="goToRecoverPassword()">
+                  <p class="pass">¿Olvidó su contraseña?</p>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="submit-container ion-padding-top">
+              <ion-col class="ion-no-padding ">
+                <ion-button class="fontAdjust" color="secondary" expand="block" type="submit" [disabled]="!form.valid">
+                  <ion-text>
+                    Iniciar sesión
+                  </ion-text>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-card>
+      </ion-col>
+      <ion-col size="1" size-md="3"></ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

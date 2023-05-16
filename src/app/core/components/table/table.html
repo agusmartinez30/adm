@@ -1,0 +1,107 @@
+<div class="container-list ion-margin-top">
+  <div class="selected-column ion-margin-top ion-margin-bottom" *ngIf="options.allColumns">
+    <h4 class="ion-no-margin">Columnas</h4>
+
+    <ul>
+      <li *ngFor="let col of options.allColumns">
+        <input type="checkbox" [id]="col.label" (click)="toggle(col)" [checked]="isChecked(col)" />
+        <label [attr.for]="col.label">{{ col.code }}</label>
+      </li>
+    </ul>
+  </div>
+
+  <ngx-datatable scrollbar class="ngx-datatable material" [scrollbarH]="true" class="material" [limit]="options.perPage"
+    [rows]="items" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="70" rowHeight="auto"
+    [offset]="page - 1" (page)="handleTablePage($event.offset)" [externalPaging]="true" [count]="count"
+    [messages]="tableMessages">
+    <!-- [selected]="selected"
+   [selectionType]="SelectionType.checkbox" -->
+
+    <ng-container *ngFor="let col of options.columns; index as i">
+      <ngx-datatable-column [draggable]="false" [resizeable]="false" [sortable]="false" class="datatable-body"
+        [name]="col.label" [prop]="col.code" *ngIf="!col.ifCondition || col.ifCondition()">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+          <div class="custom-row d-flex ion-align-items-center" *ngIf="['text', 'date'].includes(col.type)">
+            <div class="custom-row d-flex ion-align-items-center" *ngIf="options.handleNew && i === 0 && row.new">
+              <ion-badge color="danger" class="chip-notif">.</ion-badge>
+            </div>
+            <div *ngIf="options.handleEnable && i === 0">
+              <ion-icon [name]="row.enabled ? 'checkmark-circle-outline' : 'ban-outline'"
+                [color]="row.enabled ? 'success' : 'danger'" style="margin-bottom: -2px; margin-right: 5px;"></ion-icon>
+            </div>
+            {{
+            col.specialFormat
+            ? col.specialFormat(row)
+            : col.type === 'date'
+            ? (row[col.code] | date: (col.format || 'dd/MM/yyyy'))
+            : col.populates
+            ? (row[col.populates]?.[col.code] || '-')
+            : row[col.code]
+            }}
+          </div>
+
+          <div *ngIf="col.type === 'badge'" class="custom-row d-flex ion-align-items-center">
+            <ion-chip [color]="col.enums?.[col.populates ? row[col.populates][col.code] : row[col.code]]?.color"
+              mode="ios" outline="true" style="margin-left: -20px;">
+              <ion-label>{{ col.enums?.[col.populates ? row[col.populates][col.code] : row[col.code]]?.label }}
+              </ion-label>
+            </ion-chip>
+          </div>
+
+          <ion-checkbox mode="ios" color="primary" [checked]="row[col.code]" (ionChange)="handleCheckbox(row, col)"
+            *ngIf="col.type === 'checkbox'">
+          </ion-checkbox>
+
+          <div *ngIf="col.type === 'button'">
+            <ng-container *ngFor="let button of col.buttons">
+              <ion-button fill="solid" [color]="button.color"
+                (click)="button.callback ? button.callback(row, button) : handleButton(row, col)"
+                *ngIf="button.ifCondition(row)">
+                <ion-icon slot="start" [name]="button.icon"></ion-icon>
+                <span class="adjustText">{{ button.label }}</span>
+              </ion-button>
+              <div *ngIf="!button.ifCondition(row) && button.elseElement"
+                [innerHTML]="button.elseElement(row) | sanitizeHTML"></div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="col.type == 'qualification'">
+            <ion-icon *ngFor="let item of [].constructor(5); index as i"
+              [color]="row[col.code] <= i ? 'medium' : 'primary'" name="star"></ion-icon>
+          </div>
+
+        </ng-template>
+
+      </ngx-datatable-column>
+    </ng-container>
+
+    <ngx-datatable-column [draggable]="false" [resizeable]="false" [sortable]="false" class="options-header"
+      headerClass="options" name="Opciones" *ngIf="options.ellipsisOptions !== false">
+      <ng-template let-row="row" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn"
+        ngx-datatable-cell-template>
+
+        <ion-fab class="ion-fab-options-global" #fabComponent horizontal="end" vertical="bottom">
+
+          <ion-fab-button color="invisible" (click)="closeAll()">
+            <ion-icon color="secondary" name="ellipsis-vertical"></ion-icon>
+          </ion-fab-button>
+
+          <ion-fab-list side="start">
+            <ion-fab-button color="invisible" (click)="goToDetail(row.id, 'watch')" *ngIf="!options.watchDisabled">
+              <ion-icon color="primary" name="eye-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="invisible" (click)="goToDetail(row.id, 'edit')" *ngIf="!options.editDisabled">
+              <ion-icon color="primary" name="create-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="invisible" (click)="handleEnable(row)" *ngIf="options.handleEnable">
+              <ion-icon color="primary" [name]="row.enabled ? 'ban-outline' : 'checkmark-circle-outline'"></ion-icon>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+
+      </ng-template>
+
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+</div>

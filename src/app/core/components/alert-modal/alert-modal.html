@@ -1,0 +1,31 @@
+<div class="inner-content">
+  <div class="close-btn" *ngIf="showCloseButton">
+    <ion-button fill="clear" (click)="close()">
+      <ion-icon name="close" slot="icon-only" color="dark"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-row class="ion-justify-content-center first-row">
+    <ion-text color="primary">
+      <p class="ion-text-center title">{{ title }}</p>
+    </ion-text>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center" *ngIf="subtitle">
+    <ion-text color="primary">
+      <p class="ion-text-center ion-no-margin title">{{ subtitle }}</p>
+    </ion-text>
+  </ion-row>
+
+  <ion-row class="ion-margin-top">
+    <ng-container *ngFor="let action of actions">
+      <ion-col size="12" *ngIf="action.condition !== false">
+        <ion-button expand="block" class="global-btn" fill="clear" [ngClass]="action.class" (click)="action.handler()">
+          <ion-text>
+            {{ action.label }}
+          </ion-text>
+        </ion-button>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+</div>

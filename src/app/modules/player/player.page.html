@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar class="borderToolbar">
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref="/players"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Jugador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scrollbar>
+  <ion-grid class="ion-padding">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <ion-row>
+        <ion-col size="12" size-md="12">
+          <h4>{{ creating ? 'Agregar Jugador' : 'Detalle Jugador' }}</h4>
+        </ion-col>
+
+        <ion-col size="12" size-md="12">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="card ion-margin-top">
+                  <ion-item lines="none">
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input
+                      type="text"
+                      formControlName="name"
+                      [readonly]="isWatching"
+                    ></ion-input>
+                  </ion-item>
+                  <div
+                    *ngIf="!isFieldValid('name')"
+                    class="invalid-input-message"
+                  >
+                    {{getFieldError('name')}}
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="card ion-margin-top">
+                  <ion-item lines="none">
+                    <ion-label position="floating">Edad</ion-label>
+                    <ion-input
+                      type="number"
+                      formControlName="age"
+                      [readonly]="isWatching"
+                    ></ion-input>
+                  </ion-item>
+                  <div
+                    *ngIf="!isFieldValid('age')"
+                    class="invalid-input-message"
+                  >
+                    {{getFieldError('age')}}
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div class="card ion-margin-top">
+                  <ion-item lines="none">
+                    <ion-label position="floating">Position</ion-label>
+                    <ion-input
+                      type="text"
+                      formControlName="position"
+                      [readonly]="isWatching"
+                    ></ion-input>
+                  </ion-item>
+                  <div
+                    *ngIf="!isFieldValid('position')"
+                    class="invalid-input-message"
+                  >
+                    {{getFieldError('position')}}
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="card ion-margin-top">
+                  <ion-item lines="none">
+                    <ion-label position="floating"
+                      >Seleccione equipo:</ion-label
+                    >
+                    <ion-select
+                      interface="popover"
+                      formControlName="team"
+                      [disabled]="isWatching"
+                    >
+                      <ion-select-option disabled value=""
+                        >Team</ion-select-option
+                      >
+                      <ion-select-option
+                        *ngFor="let team of teams"
+                        [value]="team.id"
+                        >{{ team.name }}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <div
+                    *ngIf="!isFieldValid('country')"
+                    class="invalid-input-message"
+                  >
+                    {{getFieldError('country')}}
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div class="card ion-margin-top">
+                  <ion-item lines="none">
+                    <ion-label position="floating"
+                      >Seleccione Pais:</ion-label
+                    >
+                    <ion-select
+                      interface="popover"
+                      formControlName="country"
+                      [disabled]="isWatching"
+                    >
+                      <ion-select-option disabled value=""
+                        >Team</ion-select-option
+                      >
+                      <ion-select-option
+                        *ngFor="let country of countries"
+                        [value]="country.id"
+                        >{{ country.name }}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <div
+                    *ngIf="!isFieldValid('country')"
+                    class="invalid-input-message"
+                  >
+                    {{getFieldError('country')}}
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="12" *ngIf="!isWatching">
+                <ion-button
+                  color="secondary"
+                  expand="block"
+                  shape="round"
+                  type="submit"
+                  [disabled]="!form.valid"
+                >
+                  <ion-icon slot="start" name="save-outline"></ion-icon>
+                  Guardar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>
